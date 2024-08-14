@@ -6,6 +6,7 @@ import { ProductModule } from './product/product.module';
 import { Product } from './product/entities/product.entity';
 import { ChartModule } from './chart/chart.module';
 import { Chart } from './chart/entities/chart.entity';
+import { Category } from './category/entities/category.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { Chart } from './chart/entities/chart.entity';
       port: 5432,
       password: 'postgres',
       username: 'postgres',
-      entities: [Product,Chart],
+      entities: [Product,Chart,Category],
       database: 'postgres2',
       schema: 'test',
       synchronize: true,

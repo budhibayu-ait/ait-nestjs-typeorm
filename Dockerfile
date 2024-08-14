@@ -1,15 +1,25 @@
-FROM node:16
+# Base image
+FROM node:22
 
-WORKDIR /app
+# Create app directory
+WORKDIR /product
 
-COPY package*.json ./
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY product/package*.json ./
+COPY product/tsconfig*.json ./
+COPY product/nest-cli*.json ./
 
+# Install app dependencies
 RUN npm install
 
+# Bundle app source
 COPY . .
 
+# Creates a "dist" folder with the production build
 RUN npm run build
 
-EXPOSE 3000
-
+# Expose the port on which the app will run
+EXPOSE 4001
+#CMD npm run start:prod
+# Start the server using the production build
 CMD ["npm", "run", "start:prod"]

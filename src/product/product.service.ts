@@ -19,8 +19,15 @@ export class ProductService {
   }
 
   findAll(): Promise<Product[]> {
-    return this.productRepository.find();
+    //return this.productRepository.find();
+      return this.productRepository.find({
+        relations: {
+            chart: true,
+            category: true
+        },
+    })
   }
+  
 
   findOne(id: number): Promise<Product> {
     return this.productRepository.findOneBy({ id });

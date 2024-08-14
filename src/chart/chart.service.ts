@@ -5,6 +5,7 @@ import { Chart } from './entities/chart.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from 'src/product/entities/product.entity';
+import { CheckoutChartDto } from './dto/checkout-chart.dto';
 
 @Injectable()
 export class ChartService {
@@ -43,5 +44,16 @@ export class ChartService {
 
   remove(id: number) : Promise<{ affected?: number }>{
     return this.chartRepository.delete(id);
+  }
+
+  async checkout(checkoutChartDto: CheckoutChartDto) {
+    //asumption is a bank transfer api
+     fetch('https://jsonplaceholder.typicode.com/todos/1')//asumption is a bank transfer api
+      .then(response => response.json())
+      .then(json => console.log(json))
+      if (checkoutChartDto.account == 9999999999){
+        return "payment success";
+      }
+      return "payment failed";
   }
 }

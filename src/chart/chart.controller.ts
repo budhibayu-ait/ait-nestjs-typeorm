@@ -1,7 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ChartService } from './chart.service';
 import { CreateChartDto } from './dto/create-chart.dto';
 import { UpdateChartDto } from './dto/update-chart.dto';
+import { CheckoutChartDto } from './dto/checkout-chart.dto';
+import { Roles } from 'src/security/role/roles.decorator';
+import { Role } from 'src/security/role/role.enum';
+import { AuthGuard } from 'src/security/auth.guard';
+import { RoleGuard } from 'src/security/role/role.guard';
 
 @Controller('chart')
 export class ChartController {
@@ -30,5 +35,12 @@ export class ChartController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.chartService.remove(+id);
+  }
+
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard,RoleGuard)
+  @Post('/checkout')
+  checkout(@Body() checkoutChartDto: CheckoutChartDto) {
+    return this.chartService.checkout(checkoutChartDto);
   }
 }

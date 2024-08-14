@@ -1,3 +1,4 @@
+import { Category } from 'src/category/entities/category.entity';
 import { Chart } from 'src/chart/entities/chart.entity';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -15,4 +16,7 @@ export class Product{
 
     @OneToMany(() => Chart, (chart) => chart.product)
     chart: Chart[]
+
+    @OneToMany(() => Category, (category) => category.product)
+    category: Category[]
 }
