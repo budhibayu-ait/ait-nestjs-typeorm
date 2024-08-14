@@ -3,6 +3,9 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { Roles } from 'src/role/roles.decorator';
+import { RoleGuard } from 'src/role/role.guard';
+import { Role } from 'src/role/role.enum';
 
 @Controller('user')
 export class UserController {
@@ -13,7 +16,8 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @UseGuards(AuthGuard)
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard,RoleGuard)
   @Get()
   findAll() {
     return this.userService.findAll();
